@@ -1,0 +1,21 @@
+<h2>Listado de contribuyentes</h2>
+<table class="tabla-contribuyentes">
+  <thead class="tabla-contribuyentes-thead">
+    <tr>
+      <th>RNC/Cédula</th>
+      <th>Nombre</th>
+      <th>Tipo</th>
+      <th>Estatus</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of data; track item.rncCedula){
+    <tr>
+      <td>{{ item.rncCedula }}</td>
+      <td>{{ item.nombre }}</td>
+      <td>{{ item.tipo }}</td>
+      <td>{{ item.estatus }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
