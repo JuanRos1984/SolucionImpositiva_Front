@@ -6,16 +6,51 @@
       <th>Nombre</th>
       <th>Tipo</th>
       <th>Estatus</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
-    @for (item of data; track item.rncCedula){
+    @for (item of dataContribuyentes; track item.rncCedula){
     <tr>
       <td>{{ item.rncCedula }}</td>
       <td>{{ item.nombre }}</td>
       <td>{{ item.tipo }}</td>
       <td>{{ item.estatus }}</td>
+      <td>
+        <button (click)="verComprobantes(item.rncCedula)">
+          Ver comprobantes
+        </button>
+      </td>
     </tr>
     }
   </tbody>
 </table>
+@if(dataContribuyentes.length === 0){
+<p>No hay datos de contribuyentes</p>
+} @if(mostrarModal){
+<div>
+  <div>
+    <h2>Comprobantes de {{ dataComprobantes[0]?.contribuyente }}</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>NCF</th>
+          <th>Monto</th>
+          <th>ITBIS 18%</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(comp of dataComprobantes; track comp.ncf){
+        <tr>
+          <td>{{ comp.ncf }}</td>
+          <td>{{ comp.monto }}</td>
+          <td>{{ comp.itbiS18 }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    <p><strong>Suma ITBIS:</strong> {{ sumaITBIS }}</p>
+    <button (click)="cerrarModal()">Cerrar</button>
+  </div>
+</div>
+}
