@@ -1,0 +1,39 @@
+.table-container {
+  max-height: 400px;        
+  overflow-y: auto;
+  margin-top: 1rem;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+th.mat-header-cell {
+  background-color: #1976d2;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+td.mat-cell {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+
+.dialog-footer {
+  text-align: right;
+  margin-top: 1rem;
+}
+
+
+.suma-itbis {
+  text-align: right;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+}

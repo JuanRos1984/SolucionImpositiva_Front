@@ -1,0 +1,41 @@
+<h2>Comprobantes de: {{data.comprobantes[0].contribuyente}}</h2>
+  
+  
+<div *ngIf="data.comprobantes.length === 0">
+  <p>No hay comprobantes disponibles</p>
+</div>
+
+
+<div *ngIf="data.comprobantes.length > 0">
+  <table mat-table [dataSource]="data.comprobantes" class="mat-elevation-z8">
+
+    
+    <ng-container matColumnDef="ncf">
+      <th mat-header-cell *matHeaderCellDef> NCF </th>
+      <td mat-cell *matCellDef="let comp"> {{ comp.ncf }} </td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="monto">
+      <th mat-header-cell *matHeaderCellDef> Monto </th>
+      <td mat-cell *matCellDef="let comp"> {{ comp.monto.toFixed(2) }} </td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="itbiS18">
+      <th mat-header-cell *matHeaderCellDef> ITBIS 18% </th>
+      <td mat-cell *matCellDef="let comp"> {{ comp.itbiS18.toFixed(2) }} </td>
+    </ng-container>
+
+    
+    <tr mat-header-row *matHeaderRowDef="['ncf','monto','itbiS18']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['ncf','monto','itbiS18'];"></tr>
+  </table>
+
+  <p class="suma-itbis"><strong>Suma ITBIS:</strong> {{ data.sumaITBIS.toFixed(2) }}</p>
+</div>
+
+
+<div class="dialog-footer">
+  <button mat-raised-button color="primary" (click)="cerrar()">Cerrar</button>
+</div>

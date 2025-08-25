@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Contribuyente } from '../../services/contribuyente';
 import { Comprobantes } from '../../services/comprobantes';
+import { MatDialog,MatDialogModule } from '@angular/material/dialog';
+import { ComprobantesDialog } from '../comprobantes-dialog/comprobantes-dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contribuyentes-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [MatDialogModule, MatButtonModule, MatTableModule],
   templateUrl: './contribuyentes-view.html',
-  styleUrl: './contribuyentes-view.css',
+  styleUrls: ['./contribuyentes-view.css'],
 })
+
 export class ContribuyentesView {
   dataContribuyentes: any[] = [];
   dataComprobantes: any[] = [];
@@ -18,7 +23,8 @@ export class ContribuyentesView {
 
   constructor(
     private contribuyenteService: Contribuyente,
-    private comprobantesService: Comprobantes
+    private comprobantesService: Comprobantes,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -29,15 +35,30 @@ export class ContribuyentesView {
   }
 
   verComprobantes(rnc: string): void {
-    console.log('RNC CEDULA: ', rnc);
     this.comprobantesService.getComprobantes(rnc).subscribe({
       next: (res) => {
         this.dataComprobantes = res.comprobantes;
-        console.log('COMPROBANTES: ', this.dataComprobantes);
         this.sumaITBIS = res.sumaITBIS;
-        this.mostrarModal = true;
+
+        this.dialog.open(ComprobantesDialog,{
+          width: '80vw',      
+          maxWidth: '800px',  
+          height: '70vh',     
+          maxHeight: '600px', 
+          data:{
+            comprobantes: this.dataComprobantes,
+            sumaITBIS: this.sumaITBIS
+          },
+        });
       },
-      error: (err) => console.error('ERROR AL CARGAR LOS COMPROBANTES: ', err),
+      error: (err) => {
+        Swal.fire({
+            icon:'warning',
+            title: '',
+            text: `${err.error}`,
+            confirmButtonText: 'Aceptar'
+          });
+      },
     });
   }
   cerrarModal(): void {

@@ -1,56 +1,43 @@
 <h2>Listado de contribuyentes</h2>
-<table class="tabla-contribuyentes">
-  <thead class="tabla-contribuyentes-thead">
-    <tr>
-      <th>RNC/Cédula</th>
-      <th>Nombre</th>
-      <th>Tipo</th>
-      <th>Estatus</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (item of dataContribuyentes; track item.rncCedula){
-    <tr>
-      <td>{{ item.rncCedula }}</td>
-      <td>{{ item.nombre }}</td>
-      <td>{{ item.tipo }}</td>
-      <td>{{ item.estatus }}</td>
-      <td>
-        <button (click)="verComprobantes(item.rncCedula)">
-          Ver comprobantes
-        </button>
-      </td>
-    </tr>
-    }
-  </tbody>
+
+
+<table mat-table [dataSource]="dataContribuyentes" class="mat-elevation-z8">
+
+ 
+  <ng-container matColumnDef="rncCedula">
+    <th mat-header-cell *matHeaderCellDef> RNC/Cédula </th>
+    <td mat-cell *matCellDef="let item"> {{ item.rncCedula }} </td>
+  </ng-container>
+
+  
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let item"> {{ item.nombre }} </td>
+  </ng-container>
+
+  
+  <ng-container matColumnDef="tipo">
+    <th mat-header-cell *matHeaderCellDef> Tipo </th>
+    <td mat-cell *matCellDef="let item"> {{ item.tipo }} </td>
+  </ng-container>
+
+  
+  <ng-container matColumnDef="estatus">
+    <th mat-header-cell *matHeaderCellDef> Estatus </th>
+    <td mat-cell *matCellDef="let item"> {{ item.estatus }} </td>
+  </ng-container>
+
+  
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+    <td mat-cell *matCellDef="let item">
+      <button mat-raised-button color="primary" (click)="verComprobantes(item.rncCedula)">
+        Ver comprobantes
+      </button>
+    </td>
+  </ng-container>
+
+  
+  <tr mat-header-row *matHeaderRowDef="['rncCedula','nombre','tipo','estatus','acciones']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['rncCedula','nombre','tipo','estatus','acciones'];"></tr>
 </table>
-@if(dataContribuyentes.length === 0){
-<p>No hay datos de contribuyentes</p>
-} @if(mostrarModal){
-<div>
-  <div>
-    <h2>Comprobantes de {{ dataComprobantes[0]?.contribuyente }}</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>NCF</th>
-          <th>Monto</th>
-          <th>ITBIS 18%</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for(comp of dataComprobantes; track comp.ncf){
-        <tr>
-          <td>{{ comp.ncf }}</td>
-          <td>{{ comp.monto }}</td>
-          <td>{{ comp.itbiS18 }}</td>
-        </tr>
-        }
-      </tbody>
-    </table>
-    <p><strong>Suma ITBIS:</strong> {{ sumaITBIS }}</p>
-    <button (click)="cerrarModal()">Cerrar</button>
-  </div>
-</div>
-}
