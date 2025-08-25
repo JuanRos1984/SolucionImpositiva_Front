@@ -41,5 +41,3 @@ Luego abre [http://localhost:4200](http://localhost:4200) en tu navegador.
 - `src/app/services/comprobantes.ts`: Servicio para obtener comprobantes.
 
 ---
-
-¿Quieres agregar detalles sobre endpoints de la API, ejemplos de respuesta, o instrucciones para despliegue en producción? Si necesitas que revise algún archivo más (como los servicios o el `angular.json`), házmelo saber.
